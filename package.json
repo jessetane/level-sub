@@ -1,0 +1,23 @@
+{
+  "name": "level-sub",
+  "version": "0.0.1",
+  "description": "minimalist level-sublevel implementation",
+  "dependencies": {
+    "thru": "0.0.1"
+  },
+  "devDependencies": {
+    "level": "0.17.0-1",
+    "leveldown": "0.9.2",
+    "level-sublevel": "5.1.1",
+    "multilevel": "5.5.0",
+    "tape": "2.1.0"
+  },
+  "author": "Jesse Tane <jesse.tane@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessetane/level-sub.git"
+  },
+  "scripts": {
+    "test": "node test"
+  }
+}
