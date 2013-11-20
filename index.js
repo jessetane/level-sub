@@ -41,13 +41,14 @@ module.exports = function(db) {
       var end = '';
       
       if (name) {
-        if (!opts.start) opts.start = '';
-        opts.start = prefix + opts.start;
-        end += prefix;
+        if (opts.start) opts.start = prefix + opts.start;
+        else opts.start = prefix;
+        end = prefix;
       }
       
-      if (!opts.end) opts.end = '';
-      opts.end = end + sep + opts.end;
+      if (opts.end) opts.end = end + opts.end;
+      else opts.end = end;
+      opts.end += sep;
       
       var rs = db.createReadStream(opts);
       
