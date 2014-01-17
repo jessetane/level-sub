@@ -120,6 +120,32 @@ function setup(mode) {
   });
 
   ///////////////////////////////////////////
+  
+  tape('get/put/del', function(t) {
+    t.plan(7);
+    
+    writer.put('index.js', 'code', function(err) {
+      t.error(err);
+      t.pass('put callback ran');
+    
+      writer.get('index.js', function(err, data) {
+        t.error(err);
+        t.equal(data, 'code');
+      
+        writer.del('index.js', function(err) {
+          t.error(err);
+          t.pass('del callback ran');
+          
+          writer.get('index.js', function(err) {
+            t.ok(err);            
+            t.end();
+          });
+        });
+      });
+    });
+  });
+
+  ///////////////////////////////////////////
 
   tape('check all', function(t) {
     t.plan(tested.length * 1.5);

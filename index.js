@@ -19,9 +19,24 @@ module.exports = function(db) {
       sublevel: function(sub) {
         return sublevel(name, sub);
       },
+      put: put,
+      get: get,
+      del: del,
       createWriteStream: createWriteStream,
       createReadStream: createReadStream
     };
+    
+    function put(key, value, opts, cb) {
+      return db.put(prefix + key, value, opts, cb);
+    }
+    
+    function get(key, opts, cb) {
+      return db.get(prefix + key, opts, cb);
+    }
+    
+    function del(key, opts, cb) {
+      return db.del(prefix + key, opts, cb);
+    }
     
     function createWriteStream(opts) {
       var ws = db.createWriteStream(opts);

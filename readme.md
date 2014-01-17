@@ -45,8 +45,11 @@ client.on('connect', function() {
 ```
 
 ## api
-supports the minimum possible subset of `levelup` / `level-sublevel` apis:
+supports the minimum useful subset of `levelup` / `level-sublevel` apis:
 * `sublevel()`
+* `put()`
+* `get()`
+* `del()`
 * `createReadStream()`
 * `createWriteStream()`
 
