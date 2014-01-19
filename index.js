@@ -25,18 +25,33 @@ module.exports = function(db) {
       createWriteStream: createWriteStream,
       createReadStream: createReadStream
     };
-    
+
     function put(key, value, opts, cb) {
-      return db.put(prefix + key, value, opts, cb);
+      if (name) key = prefix + key;
+      if (typeof opts === 'function') {
+        cb = opts;
+        opts = undefined;
+      }
+      return db.put(key, value, opts, cb);
     }
     
     function get(key, opts, cb) {
-      return db.get(prefix + key, opts, cb);
+      if (name) key = prefix + key;
+      if (typeof opts === 'function') {
+        cb = opts;
+        opts = undefined;
+      }
+      return db.get(key, opts, cb);
     }
     
     function del(key, opts, cb) {
-      return db.del(prefix + key, opts, cb);
-    }
+      if (name) key = prefix + key;
+      if (typeof opts === 'function') {
+        cb = opts;
+        opts = undefined;
+      }
+      return db.del(key, opts, cb);
+    } 
     
     function createWriteStream(opts) {
       var ws = db.createWriteStream(opts);
