@@ -44,8 +44,8 @@ client.on('connect', function() {
 });
 ```
 
-## api
-supports the minimum useful subset of `levelup` / `level-sublevel` apis:
+## api coverage
+minimal for now
 * `sublevel()`
 * `put()`
 * `get()`
