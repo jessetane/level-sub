@@ -61,6 +61,7 @@ module.exports = function(db) {
           obj.key = prefix + obj.key;
           cb(null, obj);
         });
+        w.on('error', ws.emit.bind(ws, 'error'));
         ws.pipe(w);
       }
       return ws;
@@ -88,6 +89,7 @@ module.exports = function(db) {
           obj.key = obj.key.slice(prefix.length);
           cb(null, obj);
         });
+        r.on('error', rs.emit.bind(rs, 'error'));
         r.pipe(rs);
       }
       
