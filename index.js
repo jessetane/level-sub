@@ -1,5 +1,5 @@
 var thru = require('thru');
-var sep = '\xFF';
+var sep = '\xff';
 
 module.exports = function(db) {
   
