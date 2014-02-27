@@ -27,7 +27,11 @@ module.exports = function(db) {
       batch: function (ops_, cb) {
         var ops = ops_.slice();
         for (var i = 0; i < ops.length; i++) {
-          ops[i].key = prefix + ops[i].key;
+          ops[i] = {
+            key: prefix + ops_[i].key,
+            type: ops_[i].type,
+            value: ops_[i].value
+          };
         }
         return db.batch(ops, cb);
       }
