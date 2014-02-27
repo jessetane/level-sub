@@ -23,7 +23,14 @@ module.exports = function(db) {
       get: get,
       del: del,
       createWriteStream: createWriteStream,
-      createReadStream: createReadStream
+      createReadStream: createReadStream,
+      batch: function (ops_, cb) {
+        var ops = ops_.slice();
+        for (var i = 0; i < ops.length; i++) {
+          ops[i].key = prefix + ops[i].key;
+        }
+        return db.batch(ops, cb);
+      }
     };
 
     function put(key, value, opts, cb) {
