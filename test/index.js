@@ -147,6 +147,41 @@ function setup(mode) {
 
   ///////////////////////////////////////////
 
+  tape('batch', function(t) {
+    t.plan(7);
+    
+    writer.put('x', 555, function (err) {
+      t.error(err);
+      var ops = [
+        { type: 'put', key: 'y', value: '444' },
+        { type: 'del', key: 'x' },
+        { type: 'put', key: 'z', value: '333' },
+      ];
+      writer.batch(ops, function(err) {
+        t.error(err);
+        writer.get('x', function (err) {
+          t.ok(err, 'x was deleted');
+        });
+        writer.get('y', function (err, value) {
+          t.error(err);
+          t.equal(value, '444');
+        });
+        writer.get('z', function (err, value) {
+          t.error(err);
+          t.equal(value, '333');
+        });
+      });
+    });
+  });
+ 
+  tape('batch cleanup', function (t) {
+    t.plan(2);
+    writer.del('y', function (err) { t.error(err) });
+    writer.del('z', function (err) { t.error(err) });
+  });
+
+  ///////////////////////////////////////////
+
   tape('check all', function(t) {
     t.plan(tested.length * 1.5);
     
