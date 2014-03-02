@@ -1,5 +1,5 @@
 var tape = require('tape');
-var thru = require('thru');
+var thru = require('through2').obj;
 
 var delay = 100;
 
@@ -46,7 +46,7 @@ module.exports = function(db) {
       setTimeout(function() {
         var rs = db.createReadStream();
 
-        rs.pipe(thru(function(chunk, cb) {
+        rs.pipe(thru(function(chunk, enc, cb) {
           if (chunk.key.match(/^streams-/)) {
             var obj = expected.shift();
             t.equal(chunk.key, obj.key, 'key matches');

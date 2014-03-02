@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "description": "minimalist level-sublevel implementation",
   "dependencies": {
-    "thru": "0.0.2"
+    "through2": "0.4.1"
   },
   "devDependencies": {
     "level-test": "*",

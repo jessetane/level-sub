@@ -1,4 +1,4 @@
-var thru = require('thru');
+var thru = require('through2').obj;
 var sep = '\xff';
 
 module.exports = function(db) {
@@ -60,9 +60,9 @@ module.exports = function(db) {
         var ws = db.createWriteStream(opts);
         if (parent) {
           var w = ws;
-          ws = thru(function(obj, cb) {
-            obj.key = prefix + obj.key;
-            cb(null, obj);
+          ws = thru(function(chunk, enc, cb) {
+            chunk.key = prefix + chunk.key;
+            cb(null, chunk);
           });
           w.on('error', ws.emit.bind(ws, 'error'));
           ws.pipe(w);
@@ -88,9 +88,9 @@ module.exports = function(db) {
 
         if (parent) {
           var r = rs;
-          rs = thru(function(obj, cb) {
-            obj.key = obj.key.slice(prefix.length);
-            cb(null, obj);
+          rs = thru(function(chunk, enc, cb) {
+            chunk.key = chunk.key.slice(prefix.length);
+            cb(null, chunk);
           });
           r.on('error', rs.emit.bind(rs, 'error'));
           r.pipe(rs);
