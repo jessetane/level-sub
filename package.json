@@ -1,12 +1,12 @@
 {
   "name": "level-sub",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "minimalist level-sublevel implementation",
   "dependencies": {
-    "through2": "0.4.1"
+    "through2": "~0.4.1"
   },
   "devDependencies": {
-    "level-test": "1.6.1",
+    "level-test": "~1.6.1",
     "multilevel": "~5.5.0",
     "tape": "~2.1.0"
   },
