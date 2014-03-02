@@ -1,6 +1,6 @@
 {
   "name": "level-sub",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "minimalist level-sublevel implementation",
   "dependencies": {
     "thru": "0.0.1"

@@ -50,6 +50,7 @@ minimal for now
 * `put()`
 * `get()`
 * `del()`
+* `batch()`
 * `createReadStream()`
 * `createWriteStream()`
 
