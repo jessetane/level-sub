@@ -9,14 +9,14 @@ so you can create sublevels from a [`multilevel`](https://github.com/juliangrube
 var net = require('net');
 var level = require('level');
 var multilevel = require('multilevel');
-var sublevel = require('../');
+var sublevel = require('level-sub');
 
 var port = 3000;
 
 // multilevel server
 var dbname = __dirname + '/test.db';
 var serverdb = level(dbname);
-var server = net.createServer(function (con) {
+var server = net.createServer(function(con) {
   con.pipe(multilevel.server(serverdb)).pipe(con);
 }).listen(port);
 

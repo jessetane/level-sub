@@ -1,15 +1,14 @@
 var net = require('net');
-var level = require('level');
-var destroy = require('leveldown').destroy;
+var level = require('level-test')();
 var multilevel = require('multilevel');
 var sublevel = require('../');
 
 var port = 3000;
 
 // multilevel server
-var dbname = __dirname + '/test.db';
+var dbname = 'exampledb';
 var serverdb = level(dbname);
-var server = net.createServer(function (con) {
+var server = net.createServer(function(con) {
   con.pipe(multilevel.server(serverdb)).pipe(con);
 }).listen(port);
 
@@ -38,9 +37,7 @@ client.on('connect', function() {
                                  // { key: 'row2', value: 'row data' }
     rs.on('end', function() {
       server.close();
-      serverdb.close();
       client.destroy();
-      destroy(dbname, function() {});
     });
     
   }, 100);

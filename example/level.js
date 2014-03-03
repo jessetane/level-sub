@@ -1,9 +1,7 @@
-var level = require('level');
-var destroy = require('leveldown').destroy;
+var level = require('level-test')();
 var sublevel = require('../');
 
-var dbname = __dirname + '/test.db';
-var serverdb = level(dbname);
+var serverdb = level('exampledb');
 
 var db = sublevel(serverdb);
 var ws = db.createWriteStream();
@@ -20,8 +18,3 @@ rs.on('data', console.log);  // { key: 'table', value: 'meta infos' }
 rs = table.createReadStream();
 rs.on('data', console.log);  // { key: 'row1', value: 'row data' }
                              // { key: 'row2', value: 'row data' }
-
-rs.on('end', function() {
-  serverdb.close();
-  destroy(dbname, function() {});
-});
