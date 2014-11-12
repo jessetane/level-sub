@@ -1,5 +1,5 @@
 var tape = require('tape');
-var thru = require('through2').obj;
+var concat = require('concat-stream');
 
 var delay = 100;
 
@@ -46,13 +46,14 @@ module.exports = function(db) {
       setTimeout(function() {
         var rs = db.createReadStream();
 
-        rs.pipe(thru(function(chunk, enc, cb) {
-          if (chunk.key.match(/^streams-/)) {
+        rs.pipe(concat(function(data) {
+          for (var i in data) {
+            var chunk = data[i];
             var obj = expected.shift();
-            t.equal(chunk.key, obj.key, 'key matches');
-            t.equal(chunk.value, obj.value, 'value matches');
+            t.equal(obj.key, chunk.key, 'key matches');
+            t.equal(obj.value, chunk.value, 'value matches');
+            ws.write({ type: 'del', key: obj.key });
           }
-          cb();
         }));
       }, delay);
     }, delay);
