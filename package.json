@@ -6,6 +6,7 @@
     "through2": "~0.4.1"
   },
   "devDependencies": {
+    "concat-stream": "^1.4.6",
     "level-test": "~1.6.1",
     "multilevel": "~5.5.0",
     "tape": "~2.1.0"
