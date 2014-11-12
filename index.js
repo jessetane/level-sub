@@ -10,10 +10,8 @@ module.exports = function(db) {
     parent = parent || '';
     var prefix = '';
 
-    if (parent) {
-      name = parent + sep + sep + name;
-      prefix = sep + name + sep;
-    }
+    if (parent) name = parent + sep + sep + name;
+    if (name) prefix = sep + name + sep;
 
     return {
       sublevel: function(sub) {
@@ -58,7 +56,7 @@ module.exports = function(db) {
 
       createWriteStream: function(opts) {
         var ws = db.createWriteStream(opts);
-        if (parent) {
+        if (prefix) {
           var w = ws;
           ws = thru(function(chunk, enc, cb) {
             chunk.key = prefix + chunk.key;
@@ -74,7 +72,7 @@ module.exports = function(db) {
         opts = opts || {};
         var end = '';
 
-        if (parent) {
+        if (prefix) {
           if (opts.start) opts.start = prefix + opts.start;
           else opts.start = prefix;
           end = prefix;
@@ -86,7 +84,7 @@ module.exports = function(db) {
 
         var rs = db.createReadStream(opts);
 
-        if (parent) {
+        if (prefix) {
           var r = rs;
           rs = thru(function(chunk, enc, cb) {
             chunk.key = chunk.key.slice(prefix.length);
