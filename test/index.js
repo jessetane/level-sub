@@ -5,3 +5,4 @@ var db = sublevel(level('testdb'));
 require('./get-put-del')(db);
 require('./batch')(db);
 require('./streams')(db);
+require('./partitions')(db);
